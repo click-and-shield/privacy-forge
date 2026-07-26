@@ -23,6 +23,7 @@
 
 "use strict";
 
+import { qrcodegen } from "./qrcode";
 
 namespace app {
 
@@ -218,3 +219,5 @@ namespace app {
 
     initialize();
 }
+
+(window as any).app = app;

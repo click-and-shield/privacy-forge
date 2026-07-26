@@ -1,7 +1,5 @@
 import { encryptText } from "./crypt";
-
-// Déclaration pour qrcodegen qui est chargé via un script séparé
-declare const qrcodegen: any;
+import { qrcodegen } from "./qrcode";
 
 const plainTextInput = document.querySelector<HTMLTextAreaElement>("#plainText");
 const passwordInput = document.querySelector<HTMLInputElement>("#password");

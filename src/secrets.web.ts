@@ -1,7 +1,5 @@
 import secrets from '@digitaldefiance/secrets';
-
-// Déclaration pour qrcodegen qui est chargé via un script séparé
-declare const qrcodegen: any;
+import { qrcodegen } from "./qrcode";
 
 const secretInput = document.querySelector<HTMLTextAreaElement>("#FSK");
 const numSharesInput = document.querySelector<HTMLInputElement>("#SSS");
