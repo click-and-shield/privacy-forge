@@ -34,3 +34,7 @@ These tools use the following great libraries:
    - [http://localhost:5173/web/reconstruct.html](http://localhost:5173/web/reconstruct.html)
 4. build the distribution: `npm run build`
 
+## Use
+
+Open [https://click-and-shield.github.io/privacy-tools/](https://click-and-shield.github.io/privacy-tools/)
+
