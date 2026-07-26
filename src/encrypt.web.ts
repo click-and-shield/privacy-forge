@@ -31,7 +31,7 @@ function clearError(): void {
 function showError(error: unknown): void {
     if (errorOutput) {
         errorOutput.textContent =
-            error instanceof Error ? error.message : "Une erreur est survenue.";
+            error instanceof Error ? error.message : "An error occurred.";
     }
 }
 
@@ -103,7 +103,7 @@ outputFormatSelect?.addEventListener("input", () => {
     }
 });
 
-// Régénération immédiate lors de la modification des paramètres
+// Immediate regeneration when settings change
 [errCorLvlSelect, outputFormatSelect, borderInput, scaleInput, boostEccInput].forEach(input => {
     input?.addEventListener("input", () => {
         generateQrCode();
@@ -114,7 +114,7 @@ bqrButton?.addEventListener("click", () => {
     generateQrCode();
 });
 
-// Initialisation au chargement
+// Initialization on load
 updateEncryptButtonState();
 if (encryptedTextInput?.value.trim()) {
     generateQrCode();
@@ -125,7 +125,7 @@ if (bqrButton && encryptedTextInput) {
 
 function generateQrCode(): void {
     if (typeof qrcodegen === "undefined") {
-        showError(new Error("La bibliothèque QR Code n'est pas chargée."));
+        showError(new Error("QR Code library not loaded."));
         return;
     }
 
@@ -164,7 +164,7 @@ function generateQrCode(): void {
             const doc = parser.parseFromString(svgCode, "image/svg+xml");
             const newSvg = doc.documentElement;
 
-            // Remplacer le contenu du SVG existant
+            // Replace the content of the existing SVG
             while (qrcodeSvg.firstChild) {
                 qrcodeSvg.removeChild(qrcodeSvg.firstChild);
             }

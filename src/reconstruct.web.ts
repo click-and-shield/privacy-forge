@@ -58,7 +58,7 @@ function updateInputs(): void {
     inputsContainer.innerHTML = "";
     
     if (isNaN(nm) || nm < 1) {
-        showError("Veuillez indiquer un nombre de clés valide (au moins 1).");
+        showError("Please indicate a valid number of keys (at least 1).");
         return;
     }
     
@@ -69,13 +69,13 @@ function updateInputs(): void {
         div.className = "mb-3";
         
         const label = document.createElement("label");
-        label.textContent = `Clé partagée ${i + 1} :`;
+        label.textContent = `Shared key ${i + 1}:`;
         label.className = "form-label fw-bold";
         
         const input = document.createElement("input");
         input.type = "text";
         input.className = "form-control share-input";
-        input.placeholder = `Entrez la clé ${i + 1}`;
+        input.placeholder = `Enter key ${i + 1}`;
         input.addEventListener("input", clearResults);
         
         div.appendChild(label);
@@ -117,7 +117,7 @@ bqrButton?.addEventListener("click", () => {
 
 function generateQrCode(text: string): void {
     if (typeof qrcodegen === "undefined") {
-        showError("La bibliothèque QR Code n'est pas chargée.");
+        showError("QR Code library not loaded.");
         return;
     }
 
@@ -171,7 +171,7 @@ function generateQrCode(text: string): void {
 
         qrcodeContainer.style.display = "block";
     } catch (error) {
-        showError(error instanceof Error ? error.message : "Erreur lors de la génération du QR Code.");
+        showError(error instanceof Error ? error.message : "Error generating QR Code.");
     }
 }
 
@@ -232,53 +232,53 @@ bgButton?.addEventListener("click", () => {
             if (!val) {
                 missing = true;
             } else {
-                // Validation de la validité de la clé
+                // Key validity validation
                 try {
                     secrets.extractShareComponents(val);
                 } catch (e) {
-                    throw new Error(`La clé ${index + 1} est invalide.`);
+                    throw new Error(`Key ${index + 1} is invalid.`);
                 }
                 shares.push(val);
             }
         });
 
         if (missing) {
-            showError("Une ou plusieurs clés partagées sont manquantes.");
+            showError("One or more shared keys are missing.");
             return;
         }
 
         if (shares.length === 0) {
-            showError("Veuillez entrer au moins une clé.");
+            showError("Please enter at least one key.");
             return;
         }
 
-        // Vérification sommaire de cohérence (bits identiques)
+        // Summary consistency check (identical bits)
         const firstShareComponents = secrets.extractShareComponents(shares[0]);
         const bits = firstShareComponents.bits;
         
         for (let i = 1; i < shares.length; i++) {
             const comps = secrets.extractShareComponents(shares[i]);
             if (comps.bits !== bits) {
-                throw new Error("Les clés fournies ne semblent pas provenir du même partage (nombre de bits différent).");
+                throw new Error("The provided keys do not seem to come from the same sharing (different number of bits).");
             }
         }
 
-        // Reconstruire le secret
-        // Note: secrets.combine retournera un résultat erroné si le nombre de clés est inférieur au seuil (threshold)
+        // Reconstruct the secret
+        // Note: secrets.combine will return an erroneous result if the number of keys is less than the threshold
         const combinedHex = secrets.combine(shares);
         
-        // Convertir en texte
+        // Convert to text
         const secret = secrets.hex2str(combinedHex);
         
         if (outputTextArea) {
             outputTextArea.value = secret;
             if (!secret || secret.includes('\u0000')) {
-                showError("Le secret semble invalide. Le nombre de clés partagées n'est peut-être pas suffisant.");
+                showError("The secret seems invalid. The number of shared keys may not be sufficient.");
             }
         }
     } catch (error) {
         console.error(error);
-        showError(error instanceof Error ? error.message : "Une erreur est survenue lors de la reconstruction.");
+        showError(error instanceof Error ? error.message : "An error occurred during reconstruction.");
     }
 });
 

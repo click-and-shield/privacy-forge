@@ -8,8 +8,7 @@ export default defineConfig({
     outDir: 'dist',
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'index.html'), // Si on en crée un
-        crypt: resolve(__dirname, 'web/crypt.html'),
+        main: resolve(__dirname, 'index.html'), // Home page
         decrypt: resolve(__dirname, 'web/decrypt.html'),
         encrypt: resolve(__dirname, 'web/encrypt.html'),
         qrcode: resolve(__dirname, 'web/qrcode.html'),

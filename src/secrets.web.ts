@@ -81,22 +81,22 @@ generateButton?.addEventListener("click", () => {
         const t = parseInt(thresholdInput?.value ?? "0", 10);
 
         if (!secret) {
-            showError("Veuillez entrer un secret.");
+            showError("Please enter a secret.");
             return;
         }
 
         if (isNaN(n) || n < 2) {
-            showError("Le nombre de clés partagées (N) doit être au moins 2.");
+            showError("The number of shared keys (N) must be at least 2.");
             return;
         }
 
         if (isNaN(t) || t < 2) {
-            showError("Le nombre minimum de clés (NM) doit être au moins 2.");
+            showError("The minimum number of keys (NM) must be at least 2.");
             return;
         }
 
         if (t > n) {
-            showError("Le nombre minimum de clés (NM) ne peut pas être supérieur au nombre total de clés (N).");
+            showError("The minimum number of keys (NM) cannot be greater than the total number of keys (N).");
             return;
         }
 
@@ -106,26 +106,26 @@ generateButton?.addEventListener("click", () => {
         // Diviser le secret
         const shares = secrets.share(secretHex, n, t);
 
-        // Afficher les clés générées
+        // Display generated keys
         shares.forEach((share, index) => {
             const li = document.createElement("li");
             li.className = "d-flex justify-content-between align-items-center";
             
             const shareText = document.createElement("div");
             shareText.className = "text-break me-2";
-            shareText.innerHTML = `<strong>Clé ${index + 1}:</strong> <span>${share}</span>`;
+            shareText.innerHTML = `<strong>Key ${index + 1}:</strong> <span>${share}</span>`;
             
             const btnGroup = document.createElement("div");
             btnGroup.className = "flex-shrink-0";
             
             const qrBtn = document.createElement("button");
             qrBtn.className = "btn btn-sm btn-info me-1";
-            qrBtn.textContent = "Générer un QR code";
+            qrBtn.textContent = "Generate a QR code";
             qrBtn.onclick = () => generateQrCode(share);
             
             const copyBtn = document.createElement("button");
             copyBtn.className = "btn btn-sm btn-secondary";
-            copyBtn.textContent = "Copier";
+            copyBtn.textContent = "Copy";
             copyBtn.onclick = () => {
                 navigator.clipboard.writeText(share);
             };
@@ -141,13 +141,13 @@ generateButton?.addEventListener("click", () => {
 
     } catch (error) {
         console.error(error);
-        showError(error instanceof Error ? error.message : "Une erreur est survenue lors de la génération.");
+        showError(error instanceof Error ? error.message : "An error occurred during generation.");
     }
 });
 
 function generateQrCode(text: string): void {
     if (typeof qrcodegen === "undefined") {
-        showError("La bibliothèque QR Code n'est pas chargée.");
+        showError("QR Code library not loaded.");
         return;
     }
 
@@ -203,7 +203,7 @@ function generateQrCode(text: string): void {
 
         qrcodeContainer.style.display = "block";
     } catch (error) {
-        showError(error instanceof Error ? error.message : "Erreur lors de la génération du QR Code.");
+        showError(error instanceof Error ? error.message : "Error generating QR Code.");
     }
 }
 
