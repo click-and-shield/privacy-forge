@@ -8,11 +8,12 @@ const bootstrapAssets = [
 ];
 
 export default defineConfig({
-  base: '/privacy-tools/',
+  base: './',
   root: '.',
   plugins: [
     {
       name: 'copy-bootstrap-assets',
+      apply: 'build',
       buildStart() {
         for (const fileName of bootstrapAssets) {
           this.emitFile({
