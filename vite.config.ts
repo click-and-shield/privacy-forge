@@ -1,9 +1,29 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
+import { readFileSync } from 'fs';
+
+const bootstrapAssets = [
+  'bootstrap-5.3.3.min.css',
+  'bootstrap-5.3.3.bundle.min.js',
+];
 
 export default defineConfig({
   base: '/privacy-tools/',
   root: '.',
+  plugins: [
+    {
+      name: 'copy-bootstrap-assets',
+      buildStart() {
+        for (const fileName of bootstrapAssets) {
+          this.emitFile({
+            type: 'asset',
+            fileName: `web/${fileName}`,
+            source: readFileSync(resolve(__dirname, 'web', fileName)),
+          });
+        }
+      },
+    },
+  ],
   build: {
     outDir: 'dist',
     rollupOptions: {
