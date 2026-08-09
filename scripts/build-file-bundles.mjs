@@ -10,6 +10,8 @@ const entries = {
   qrcode: 'src/qrcode.web.ts',
   reconstruct: 'src/reconstruct.web.ts',
   secrets: 'src/secrets.web.ts',
+  sign: 'src/sign.web.ts',
+  verify: 'src/verify.web.ts',
 };
 
 for (const [pageName, entryPath] of Object.entries(entries)) {

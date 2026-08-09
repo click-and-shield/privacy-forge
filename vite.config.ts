@@ -32,6 +32,8 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'), // Home page
         decrypt: resolve(__dirname, 'web/decrypt.html'),
         encrypt: resolve(__dirname, 'web/encrypt.html'),
+        sign: resolve(__dirname, 'web/sign.html'),
+        verify: resolve(__dirname, 'web/verify.html'),
         qrcode: resolve(__dirname, 'web/qrcode.html'),
         reconstruct: resolve(__dirname, 'web/reconstruct.html'),
         secrets: resolve(__dirname, 'web/secrets.html'),
