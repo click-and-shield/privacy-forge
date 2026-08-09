@@ -22,7 +22,9 @@ Open [https://click-and-shield.github.io/privacy-tools/](https://click-and-shiel
 
 ### From a local copy
 
-Open the `index.html` file in your browser.
+1. Download the ZIP file that contains the last release.
+2. Unzip the file.
+3. Open the `index.html` file in your browser.
 
 ## Credits
 
