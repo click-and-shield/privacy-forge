@@ -11,6 +11,7 @@
             --color-c2: #6f42c1;
             --color-c3: #198754;
             --color-c4: #0dcaf0;
+            --color-c5: #ffc107;
         }
         body { background-color: #f8f9fa; padding-top: 50px; }
         .container { max-width: 600px; }
@@ -25,6 +26,7 @@
         .menu-color-c2 { background-color: var(--color-c2); }
         .menu-color-c3 { background-color: var(--color-c3); }
         .menu-color-c4 { background-color: var(--color-c4); }
+        .menu-color-c5 { background-color: var(--color-c5); }
     </style>
 </head>
 <body>
@@ -37,12 +39,20 @@
                 <p class="text-center text-muted">Select a tool:</p>
                 <div class="list-group">
                     <a href="web/encrypt.html" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                        Encryption
+                        AES Encryption
                         <span class="menu-color menu-color-c1" aria-hidden="true"></span>
                     </a>
                     <a href="web/decrypt.html" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                        Decryption
+                        AES Decryption
                         <span class="menu-color menu-color-c1" aria-hidden="true"></span>
+                    </a>
+                    <a href="web/public-encrypt.html" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        Public-key Encryption
+                        <span class="menu-color menu-color-c5" aria-hidden="true"></span>
+                    </a>
+                    <a href="web/public-decrypt.html" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        Public-key Decryption
+                        <span class="menu-color menu-color-c5" aria-hidden="true"></span>
                     </a>
                     <a href="web/sign.html" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                         Message Signature
@@ -66,7 +76,7 @@
                     </a>
                 </div>
                 <div class="mt-4">
-                    <p class="small text-muted mb-2">Encryption algorithm:</p>
+                    <p class="small text-muted mb-2">AES Encryption algorithm:</p>
                     <p class="small text-muted mb-0">AES-256 / GCM mode / PBKDF2/SHA-256 key derivation and IV</p>
                 </div>
                 <div class="mt-4">
