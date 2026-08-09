@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signature Verification</title>
+    <link href="bootstrap-5.3.3.min.css" rel="stylesheet" >
+    <style>
+        body { background-color: #f8f9fa; }
+        .container { max-width: 800px; margin-top: 50px; margin-bottom: 50px; }
+        .card { box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    </style>
+  <script defer src="../assets/verify.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header bg-success text-white">
+            <h1 class="h4 mb-0">Verify a message signature</h1>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-info small" role="alert">
+                Everything is processed locally in your browser. Your public key, message, and signature are never sent over the network.
+            </div>
+            <div class="mb-3">
+                <label for="publicKey" class="form-label">Public key (SPKI PEM):</label>
+                <textarea id="publicKey" class="form-control font-monospace" rows="7" spellcheck="false" placeholder="-----BEGIN PUBLIC KEY-----&#10;...&#10;-----END PUBLIC KEY-----"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="originalText" class="form-label">Original text:</label>
+                <textarea id="originalText" class="form-control" rows="5"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="signature" class="form-label">Signature (Base64):</label>
+                <textarea id="signature" class="form-control font-monospace" rows="5" spellcheck="false"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="algorithm" class="form-label">Signature algorithm:</label>
+                <select id="algorithm" class="form-select">
+                    <option value="RSA">RSA (PKCS#1 v1.5 / SHA-256)</option>
+                    <option value="RSA-PSS">RSA-PSS (SHA-256)</option>
+                    <option value="ECDSA">ECDSA (hash adapted to the curve)</option>
+                    <option value="Ed25519">Ed25519</option>
+                </select>
+            </div>
+            <div class="accordion mb-3" id="publicKeyHelp">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#publicKeyCommand" aria-expanded="false" aria-controls="publicKeyCommand">
+                            Extract the public key from the private key
+                        </button>
+                    </h2>
+                    <div id="publicKeyCommand" class="accordion-collapse collapse" data-bs-parent="#publicKeyHelp">
+                        <div class="accordion-body">
+                            <b>Extract the public key from the private key</b>: <pre class="mb-0">openssl pkey -in private-key.pem -pubout -out public-key.pem</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-4">
+                <button id="verifyButton" class="btn btn-success w-100" type="button">Verify signature</button>
+            </div>
+            <div id="result" class="alert d-none" role="status" aria-live="polite"></div>
+            <div id="error" class="text-danger mt-2" role="alert" aria-live="polite" style="min-height: 24px;"></div>
+        </div>
+    </div>
+</div>
+<script src="bootstrap-5.3.3.bundle.min.js" ></script>
+</body>
+</html>

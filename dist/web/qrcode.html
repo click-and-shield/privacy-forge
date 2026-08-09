@@ -1,0 +1,176 @@
+<!--
+  - QR Code generator input demo (HTML+JavaScript)
+  -
+  - Copyright (c) Project Nayuki. (MIT License)
+  - https://www.nayuki.io/page/qr-code-generator-library
+  -
+  - Permission is hereby granted, free of charge, to any person obtaining a copy of
+  - this software and associated documentation files (the "Software"), to deal in
+  - the Software without restriction, including without limitation the rights to
+  - use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+  - the Software, and to permit persons to whom the Software is furnished to do so,
+  - subject to the following conditions:
+  - * The above copyright notice and this permission notice shall be included in
+  -   all copies or substantial portions of the Software.
+  - * The Software is provided "as is", without warranty of any kind, express or
+  -   implied, including but not limited to the warranties of merchantability,
+  -   fitness for a particular purpose and noninfringement. In no event shall the
+  -   authors or copyright holders be liable for any claim, damages or other
+  -   liability, whether in an action of contract, tort or otherwise, arising from,
+  -   out of or in connection with the Software or the use or other dealings in the
+  -   Software.
+  -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <link href="bootstrap-5.3.3.min.css" rel="stylesheet" >
+    <style type="text/css">
+        body { background-color: #f8f9fa; }
+        .container { max-width: 900px; margin-top: 30px; margin-bottom: 50px; }
+        .card { box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        #qrcode-canvas, #qrcode-svg { 
+            max-width: 100%; 
+            height: auto !important; 
+            display: block; 
+            margin: 0 auto;
+        }
+    </style>
+  <script defer src="../assets/qrcode.js"></script>
+
+</head>
+
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header bg-info text-white">
+            <h1 class="h4 mb-0">QR Code Generator</h1>
+        </div>
+        <div class="card-body">
+            <div id="loading" class="text-center py-5">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2">Loading application...</p>
+            </div>
+
+            <form id="loaded" hidden="hidden" onsubmit="event.preventDefault();">
+                <div class="mb-3">
+                    <label for="text-input" class="form-label font-weight-bold">Text:</label>
+                    <textarea class="form-control" placeholder="Enter text to encode" id="text-input" rows="3"></textarea>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6 text-center">
+                        <label class="form-label d-block">Preview:</label>
+                        <div class="bg-light p-3 border rounded">
+                            <canvas id="qrcode-canvas" style="background-color:#E8E8E8"></canvas>
+                            <svg id="qrcode-svg" style="background-color:#E8E8E8">
+                                <rect width="100%" height="100%" fill="#FFFFFF" stroke-width="0"></rect>
+                                <path d="" fill="#000000" stroke-width="0"></path>
+                            </svg>
+                        </div>
+                        <div class="mt-2">
+                            <a id="download" class="btn btn-sm btn-outline-primary">Download</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label class="form-label">Error correction:</label>
+                            <div class="btn-group w-100" role="group">
+                                <input type="radio" class="btn-check" name="errcorlvl" id="errcorlvl-low" autocomplete="off" checked>
+                                <label class="btn btn-outline-secondary" for="errcorlvl-low">Low</label>
+
+                                <input type="radio" class="btn-check" name="errcorlvl" id="errcorlvl-medium" autocomplete="off">
+                                <label class="btn btn-outline-secondary" for="errcorlvl-medium">Medium</label>
+
+                                <input type="radio" class="btn-check" name="errcorlvl" id="errcorlvl-quartile" autocomplete="off">
+                                <label class="btn btn-outline-secondary" for="errcorlvl-quartile">Quartile</label>
+
+                                <input type="radio" class="btn-check" name="errcorlvl" id="errcorlvl-high" autocomplete="off">
+                                <label class="btn btn-outline-secondary" for="errcorlvl-high">High</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Output format:</label>
+                            <div class="btn-group w-100" role="group">
+                                <input type="radio" class="btn-check" name="output-format" id="output-format-bitmap" autocomplete="off" checked>
+                                <label class="btn btn-outline-secondary" for="output-format-bitmap">Bitmap</label>
+
+                                <input type="radio" class="btn-check" name="output-format" id="output-format-vector" autocomplete="off">
+                                <label class="btn btn-outline-secondary" for="output-format-vector">Vector</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion" id="advancedOptions">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOptions">
+                                Advanced options
+                            </button>
+                        </h2>
+                        <div id="collapseOptions" class="accordion-collapse collapse" data-bs-parent="#advancedOptions">
+                            <div class="accordion-body">
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <label for="border-input" class="form-label">Border:</label>
+                                        <input type="number" class="form-control" value="4" min="0" max="100" id="border-input">
+                                    </div>
+                                    <div id="scale-row" class="col-md-4">
+                                        <label for="scale-input" class="form-label">Scale:</label>
+                                        <input type="number" class="form-control" value="8" min="1" max="30" id="scale-input">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="mask-input" class="form-label">Mask:</label>
+                                        <input type="number" class="form-control" value="-1" min="-1" max="7" id="mask-input">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="light-color-input" class="form-label">Light color:</label>
+                                        <input type="text" class="form-control font-monospace" value="#FFFFFF" id="light-color-input">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="dark-color-input" class="form-label">Dark color:</label>
+                                        <input type="text" class="form-control font-monospace" value="#000000" id="dark-color-input">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="version-min-input" class="form-label">Min Version:</label>
+                                        <input type="number" class="form-control" value="1" min="1" max="40" id="version-min-input" oninput="app.handleVersionMinMax('min');">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="version-max-input" class="form-label">Max Version:</label>
+                                        <input type="number" class="form-control" value="40" min="1" max="40" id="version-max-input" oninput="app.handleVersionMinMax('max');">
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" checked="checked" id="boost-ecc-input">
+                                            <label class="form-check-label" for="boost-ecc-input">
+                                                Optimize ECC within the same version
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <h6>Statistics:</h6>
+                    <div id="statistics-output" class="p-2 bg-light border rounded small font-monospace" style="white-space:pre"></div>
+                </div>
+            </form>
+        </div>
+        <div class="card-footer text-muted text-center">
+            <small>Based on Project Nayuki</small>
+        </div>
+    </div>
+</div>
+
+<script src="bootstrap-5.3.3.bundle.min.js" ></script>
+</body>
+</html>

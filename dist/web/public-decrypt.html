@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Public-key Decryption</title>
+    <link href="bootstrap-5.3.3.min.css" rel="stylesheet" >
+    <style>
+        body { background-color: #f8f9fa; }
+        .container { max-width: 800px; margin-top: 50px; margin-bottom: 50px; }
+        .card { box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    </style>
+  <script defer src="../assets/publicDecrypt.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header bg-secondary text-white">
+            <h1 class="h4 mb-0">Decrypt with a private key</h1>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-info small" role="alert">
+                Everything is processed locally in your browser. Your private key and encrypted data are never sent over the network.
+            </div>
+            <div class="mb-3">
+                <label for="encryptedEnvelope" class="form-label">Encrypted envelope (JSON):</label>
+                <textarea id="encryptedEnvelope" class="form-control font-monospace" rows="8" spellcheck="false"></textarea>
+                <div class="form-text">Paste the complete result produced by the public-key encryption form. The algorithm is detected automatically.</div>
+            </div>
+            <div class="mb-3">
+                <label for="privateKey" class="form-label">Private key (PKCS#8 PEM):</label>
+                <textarea id="privateKey" class="form-control font-monospace" rows="8" spellcheck="false" placeholder="-----BEGIN PRIVATE KEY-----&#10;...&#10;-----END PRIVATE KEY-----"></textarea>
+                <div class="form-text">Encrypted PEM keys are not supported.</div>
+            </div>
+            <div class="mb-4">
+                <button id="decryptButton" class="btn btn-secondary w-100" type="button">Decrypt text</button>
+            </div>
+            <div class="mb-3">
+                <label for="decryptedText" class="form-label">Decrypted text:</label>
+                <textarea id="decryptedText" class="form-control" rows="5" readonly></textarea>
+            </div>
+            <div class="mb-3">
+                <button id="copyButton" class="btn btn-secondary w-100" type="button" disabled>Copy decrypted text</button>
+            </div>
+            <div id="error" class="text-danger mt-2" role="alert" aria-live="polite" style="min-height: 24px;"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

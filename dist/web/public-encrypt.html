@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Public-key Encryption</title>
+    <link href="bootstrap-5.3.3.min.css" rel="stylesheet" >
+    <style>
+        body { background-color: #f8f9fa; }
+        .container { max-width: 800px; margin-top: 50px; margin-bottom: 50px; }
+        .card { box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+    </style>
+  <script defer src="../assets/publicEncrypt.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h1 class="h4 mb-0">Encrypt with a public key</h1>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-info small" role="alert">
+                Everything is processed locally in your browser. Your public key and message are never sent over the network.
+            </div>
+            <div class="mb-3">
+                <label for="plainText" class="form-label">Text to encrypt:</label>
+                <textarea id="plainText" class="form-control" rows="5"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="publicKey" class="form-label">Public key (SPKI PEM):</label>
+                <textarea id="publicKey" class="form-control font-monospace" rows="8" spellcheck="false" placeholder="-----BEGIN PUBLIC KEY-----&#10;...&#10;-----END PUBLIC KEY-----"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="algorithm" class="form-label">Encryption algorithm:</label>
+                <select id="algorithm" class="form-select">
+                    <option value="ECDH-HKDF-AES-256-GCM">ECDH + HKDF + AES-256-GCM</option>
+                    <option value="RSA-OAEP-AES-256-GCM">RSA-OAEP + AES-GCM</option>
+                </select>
+            </div>
+            <div class="accordion mb-3" id="keyGenerationHelp">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#keyGenerationCommands" aria-expanded="false" aria-controls="keyGenerationCommands">
+                            Generate encryption keys with OpenSSL
+                        </button>
+                    </h2>
+                    <div id="keyGenerationCommands" class="accordion-collapse collapse" data-bs-parent="#keyGenerationHelp">
+                        <div class="accordion-body">
+                            <b>ECDH + HKDF + AES-256-GCM</b>
+<pre>
+openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-256 -out private-prime256v1-key.pem
+openssl pkey -in private-prime256v1-key.pem -pubout -out public-prime256v1-key.pem
+
+openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-384 -out private-secp384r1-key.pem
+openssl pkey -in private-secp384r1-key.pem -pubout -out public-secp384r1-key.pem
+
+openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-521 -out private-secp521r1-key.pem
+openssl pkey -in private-secp521r1-key.pem -pubout -out public-secp521r1-key.pem
+</pre>
+                            <b>RSA-OAEP + AES-GCM</b>
+<pre class="mb-0">
+openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:3072 -out private-rsa.pem
+openssl pkey -in private-rsa.pem -pubout -out public-rsa.pem
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-4">
+                <button id="encryptButton" class="btn btn-primary w-100" type="button">Encrypt text</button>
+            </div>
+            <div class="mb-3">
+                <label for="encryptedText" class="form-label">Encrypted envelope (JSON with Base64 fields):</label>
+                <textarea id="encryptedText" class="form-control font-monospace" rows="8" readonly></textarea>
+            </div>
+            <div class="mb-3">
+                <button id="copyButton" class="btn btn-secondary w-100" type="button" disabled>Copy encrypted envelope</button>
+            </div>
+            <div id="error" class="text-danger mt-2" role="alert" aria-live="polite" style="min-height: 24px;"></div>
+        </div>
+    </div>
+</div>
+<script src="bootstrap-5.3.3.bundle.min.js" ></script>
+</body>
+</html>
