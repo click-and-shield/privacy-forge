@@ -46,7 +46,20 @@
                     </h2>
                     <div id="keyGenerationCommands" class="accordion-collapse collapse" data-bs-parent="#keyGenerationHelp">
                         <div class="accordion-body">
-                        See this documentation: <a href="https://github.com/click-and-shield/privacy-forge/tree/master/doc/public-key-encryption.md">https://github.com/click-and-shield/privacy-forge/tree/master/doc/public-key-encryption.md</a>
+                            <ul class="mb-0">
+                                <li><b>Key format:</b></li>
+                                <ul>
+                                    <li><b>SPKI</b> defines a standard format for storing <b>public</b> keys.</li>
+                                    <li><b>PEM</b> is a file format for storing cryptographic keys and certificates.</li>
+                                </ul>
+                                <li><b>Encryption scheme:</b></li>
+                                <ul>
+                                    <li><b>ECDH-HKDF-AES-256-GCM</b>: use Elliptic Curve Diffie-Hellman with a Hash-based Key Derivation Function and <code>AES-256-GCM</code> encryption.</li>
+                                    <li><b>RSA-OAEP-AES-256-GCM</b>: use Rivest–Shamir–Adleman (<code>RSA</code>) with Optimal Asymmetric Encryption Padding (<code>OAEP</code>) and <code>AES-256-GCM</code> encryption.</li>
+                                </ul>
+                            </ul>
+                            <hr>
+                            More information: <a href="https://github.com/click-and-shield/privacy-forge/tree/master/doc/public-key-encryption.md">Public key encryption / decryption</a>
                         </div>
                     </div>
                 </div>

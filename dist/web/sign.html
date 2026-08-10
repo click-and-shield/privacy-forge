@@ -45,19 +45,27 @@
                 <div class="accordion-item">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#keyGenerationCommands" aria-expanded="false" aria-controls="keyGenerationCommands">
-                            Generate a private key with OpenSSL
+                            Documentation
                         </button>
                     </h2>
                     <div id="keyGenerationCommands" class="accordion-collapse collapse" data-bs-parent="#keyGenerationHelp">
                         <div class="accordion-body">
                             <ul class="mb-0">
-                                <li><b>Ed25519</b>: <pre>openssl genpkey -algorithm Ed25519 -out private-ed25519-key.pem</pre></li>
-                                <li><b>RSA</b>: <pre>openssl genpkey -algorithm RSA -out private-rsa-key.pem</pre></li>
-                                <li><b>RSA-PSS</b>: <pre>openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:4096 -out private-rsa-pss-key.pem</pre></li>
-                                <li><b>ECDSA (P-256)</b>: <pre>openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-256 -out private-prime256v1-key.pem</pre></li>
-                                <li><b>ECDSA (P-384)</b>: <pre>openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-384 -out private-secp384r1-key.pem</pre></li>
-                                <li><b>ECDSA (P-521)</b>: <pre>openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-521 -out private-secp521r1-key.pem</pre></li>
+                                <li><b>Key format:</b></li>
+                                <ul>
+                                    <li><b>PKCS#8</b> defines a standard format for storing <b>private</b> keys.</li>
+                                    <li><b>PEM</b> is a file format for storing cryptographic keys and certificates.</li>
+                                </ul>
+                                <li><b>Signature scheme:</b></li>
+                                <ul>
+                                    <li><b>PKCS#1 v1.5 / SHA-256</b>: is <code>PKCS1-v1_5</code> with <code>SHA-256</code> explicitly selected as its message digest algorithm.</li>
+                                    <li><b>RSA-PSS</b>: is a newer probabilistic <code>RSA</code> signature scheme. It incorporates a random salt and is generally preferred to <code>PKCS1-v1_5</code> for new <code>RSA</code>-based applications.</li>
+                                    <li><b>ECDSA</b>: is an elliptic-curve signature scheme. It provides security comparable to <code>RSA</code> with significantly smaller keys and signatures. It requires both an elliptic curve, such as <code>P-256</code>, and a hash function, such as <code>SHA-256</code>.</li>
+                                    <li><b>Ed25519</b>: is a modern elliptic-curve signature scheme based on Edwards curves. Its cryptographic parameters and hashing behavior are largely fixed by the scheme, making it simpler to use correctly. It produces compact keys and signatures and does not require the application to select a separate hash function.</li>
+                                </ul>
                             </ul>
+                            <hr/>
+                            More information: <a href="https://github.com/click-and-shield/privacy-forge/tree/master/doc/signature.md">Signature</a>
                         </div>
                     </div>
                 </div>
