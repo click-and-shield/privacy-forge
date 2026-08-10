@@ -21,7 +21,7 @@ openssl genpkey -algorithm rsa-pss -out private-rsa-pss-key.pem
 openssl pkey -in private-rsa-pss-key.pem -pubout -out public-rsa-pss-key.pem
 ```
 
-Generate **`ECDSA PKCS#8 PEM`** keys:
+Generate **`SPKI PEM`** keys:
 
 ```
 openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-256 -out private-prime256v1-key.pem

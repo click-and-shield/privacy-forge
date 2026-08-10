@@ -33,9 +33,26 @@
                 <textarea id="privateKey" class="form-control font-monospace" rows="8" spellcheck="false" placeholder="-----BEGIN PRIVATE KEY-----&#10;...&#10;-----END PRIVATE KEY-----"></textarea>
                 <div class="form-text">Encrypted PEM keys are not supported.</div>
             </div>
+
+            <div class="accordion mb-3" id="keyGenerationHelp">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#keyGenerationCommands" aria-expanded="false" aria-controls="keyGenerationCommands">
+                            Documentation
+                        </button>
+                    </h2>
+                    <div id="keyGenerationCommands" class="accordion-collapse collapse" data-bs-parent="#keyGenerationHelp">
+                        <div class="accordion-body">
+                            See this documentation: <a href="https://github.com/click-and-shield/privacy-forge/tree/master/doc/public-key-encryption.md">https://github.com/click-and-shield/privacy-forge/tree/master/doc/public-key-encryption.md</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="mb-4">
                 <button id="decryptButton" class="btn btn-secondary w-100" type="button">Decrypt text</button>
             </div>
+
             <div class="mb-3">
                 <label for="decryptedText" class="form-label">Decrypted text:</label>
                 <textarea id="decryptedText" class="form-control" rows="5" readonly></textarea>
@@ -47,5 +64,6 @@
         </div>
     </div>
 </div>
+<script src="bootstrap-5.3.3.bundle.min.js" ></script>
 </body>
 </html>
