@@ -1,4 +1,4 @@
-# Public key encryption
+# Public key encryption / decryption
 
 ## ECDH + HKDF + AES-256-GCM
 
@@ -7,7 +7,7 @@
 
 Scenario: Alice encrypts a message for Bob using `ECDH + HKDF + AES-256-GCM`.
 
-Encryption:
+### Encryption
 
 - Bob knows his private key (`Bprv`) and his public key (`Bpub`).
 - Alice knows Bob's public key (`Bpub`).
@@ -21,7 +21,7 @@ Encryption:
   - The encrypted message.
 - Alice sends the document to Bob.
 
-Decryption:
+### Decryption
 
 - Bob knows his private key (`Bprv`) and his public key (`Bpub`).
 - Bob finds Alice's _ephemeral_ public key `Epub`, since it is included in the document received from Alice.
@@ -31,7 +31,11 @@ Decryption:
   The resulting key `K` is used to decrypt the message.
 - Bob decrypts the message using `AES-256-GCM` with the derived key (`K`).
 
-Keys generation (EC `SPKI PEM`):
+###  Keys generation (EC `PKCS#8 and SPKI PEM`)
+
+* `SPKI` defines a standard format for storing **public** keys.
+* `PKCS#8` defines a standard format for storing **private** keys.
+* `PEM` is a file format for storing cryptographic keys and certificates.
 
 ```
 openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-256 -out private-prime256v1-key.pem
@@ -44,10 +48,6 @@ openssl genpkey -algorithm EC -pkeyopt ec_paramgen_curve:P-521 -out private-secp
 openssl pkey -in private-secp521r1-key.pem -pubout -out public-secp521r1-key.pem
 ```
 
-> * `SPKI` defines a standard format for storing **public** keys.
-> * `PKCS#8` defines a standard format for storing **private** keys.
-> * `PEM` is a file format for storing cryptographic keys and certificates.
-
 ## RSA-OAEP + AES-256-GCM
 
 - **RSA**: [Rivest–Shamir–Adleman](https://en.wikipedia.org/wiki/RSA_cryptosystem)
@@ -55,7 +55,7 @@ openssl pkey -in private-secp521r1-key.pem -pubout -out public-secp521r1-key.pem
 
 Scenario: Alice encrypts a message for Bob using `RSA-OAEP + AES-256-GCM`.
 
-Encryption:
+### Encryption
 
 - Bob knows his private key (`Bprv`) and his public key (`Bpub`).
 - Alice knows Bob's public key (`Bpub`).
@@ -67,18 +67,18 @@ Encryption:
   - The encrypted message.
 - Alice sends the document to Bob.
 
-Decryption:
+### Decryption
 
 - Bob decrypts the secret key (`Asec`) using `RSA-OAEP` with his private key (`Bprv`).
 - Bob decrypts the message using `AES-256-GCM` with the secret key (`Asec`).
 
-Keys generation (RSA `SPKI PEM`):
+### Keys generation (RSA `PKCS#8 and SPKI PEM`)
+
+* `SPKI` defines a standard format for storing **public** keys.
+* `PKCS#8` defines a standard format for storing **private** keys.
+* `PEM` is a file format for storing cryptographic keys and certificates.
 
 ```
 openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:3072 -out private-rsa.pem
 openssl pkey -in private-rsa.pem -pubout -out public-rsa.pem
 ```
-
-> * `SPKI` defines a standard format for storing **public** keys.
-> * `PKCS#8` defines a standard format for storing **private** keys.
-> * `PEM` is a file format for storing cryptographic keys and certificates.
