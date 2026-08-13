@@ -14,6 +14,7 @@ const entries = {
   secrets: 'src/secrets.web.ts',
   sign: 'src/sign.web.ts',
   verify: 'src/verify.web.ts',
+  openpgp: 'src/openpgp.web.ts',
 };
 
 const htmlPageNames = {

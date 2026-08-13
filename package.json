@@ -16,6 +16,7 @@
   },
   "private": true,
   "dependencies": {
-    "@digitaldefiance/secrets": "^2.0.7"
+    "@digitaldefiance/secrets": "^2.0.7",
+    "openpgp": "^6.3.1"
   }
 }

@@ -8,6 +8,7 @@ confidentiality.
 - Quickly encrypt and decrypt text using a highly secure algorithm ([AES-256](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) in [GCM mode](https://en.wikipedia.org/wiki/Galois/Counter_Mode) with [PBKDF2/SHA-256](https://en.wikipedia.org/wiki/PBKDF2) key derivation).
 - Quickly encrypt using a public key, and decrypt using a private key.
 - Quickly sign using a private key, and verify using a public key.
+- Encrypt, decrypt, sign, verify, and generate GPG/OpenPGP key pairs entirely in the browser.
 - Share and reconstruct a secret using [Shamir's secret sharing algorithm](https://en.wikipedia.org/wiki/Shamir%27s_secret_sharing).
 - Create QR codes from text.
 
@@ -32,3 +33,4 @@ These tools use the following great libraries:
 
 - [https://github.com/Digital-Defiance/secrets-ts](https://github.com/Digital-Defiance/secrets-ts)
 - [https://github.com/nayuki/QR-Code-generator](https://github.com/nayuki/QR-Code-generator)
+- [https://openpgpjs.org/](https://openpgpjs.org/)

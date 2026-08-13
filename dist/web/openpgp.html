@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPG / OpenPGP tools</title>
+    <link href="bootstrap-5.3.3.min.css" rel="stylesheet" >
+    <style>
+        body { background-color: #f8f9fa; }
+        .container { max-width: 800px; margin-top: 50px; margin-bottom: 50px; }
+        .card { box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        textarea { min-height: 8rem; }
+        textarea.key-output { min-height: 13rem; }
+        .form-text { overflow-wrap: anywhere; }
+        .custom-header {
+            background-color: #ffc107;
+        }
+    </style>
+  <script defer src="../assets/openpgp.js"></script>
+</head>
+<body>
+<main class="container">
+    <div class="card">
+        <div class="card-header custom-header text-white">
+            <h1 class="h4 mb-0">GPG / OpenPGP Tools</h1>
+        </div>
+        <div class="card-body">
+            <div class="accordion mb-4" id="gpgForms">
+        <section class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#encryptPanel" aria-expanded="false" aria-controls="encryptPanel">
+                    Encrypt text with a GPG public key
+                </button>
+            </h2>
+            <div id="encryptPanel" class="accordion-collapse collapse" data-bs-parent="#gpgForms">
+                <div class="accordion-body">
+                    <form id="encryptForm">
+                        <div class="mb-3">
+                            <label for="encryptText" class="form-label">Text to encrypt:</label>
+                            <textarea id="encryptText" class="form-control" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="encryptPublicKey" class="form-label">GPG public key:</label>
+                            <textarea id="encryptPublicKey" class="form-control font-monospace" required spellcheck="false" placeholder="-----BEGIN PGP PUBLIC KEY BLOCK-----"></textarea>
+                        </div>
+                        <button class="btn btn-primary w-100" type="submit">Encrypt text</button>
+                        <div class="text-danger mt-2" data-error role="alert" aria-live="polite"></div>
+                        <div class="mt-3">
+                            <label for="encryptedOutput" class="form-label">Encrypted GPG message:</label>
+                            <textarea id="encryptedOutput" class="form-control font-monospace" readonly></textarea>
+                            <button class="btn btn-secondary w-100 mt-2" type="button" data-copy="encryptedOutput">Copy encrypted message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#decryptPanel" aria-expanded="false" aria-controls="decryptPanel">
+                    Decrypt text with a GPG private key
+                </button>
+            </h2>
+            <div id="decryptPanel" class="accordion-collapse collapse" data-bs-parent="#gpgForms">
+                <div class="accordion-body">
+                    <form id="decryptForm">
+                        <div class="mb-3">
+                            <label for="decryptMessage" class="form-label">Encrypted GPG message:</label>
+                            <textarea id="decryptMessage" class="form-control font-monospace" required spellcheck="false" placeholder="-----BEGIN PGP MESSAGE-----"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="decryptPrivateKey" class="form-label">GPG private key:</label>
+                            <textarea id="decryptPrivateKey" class="form-control font-monospace" required spellcheck="false" placeholder="-----BEGIN PGP PRIVATE KEY BLOCK-----"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="decryptPassphrase" class="form-label">Private key passphrase:</label>
+                            <input id="decryptPassphrase" class="form-control" type="password" autocomplete="off">
+                        </div>
+                        <button class="btn btn-primary w-100" type="submit">Decrypt text</button>
+                        <div class="text-danger mt-2" data-error role="alert" aria-live="polite"></div>
+                        <div class="mt-3">
+                            <label for="decryptedOutput" class="form-label">Decrypted text:</label>
+                            <textarea id="decryptedOutput" class="form-control" readonly></textarea>
+                            <button class="btn btn-secondary w-100 mt-2" type="button" data-copy="decryptedOutput">Copy decrypted text</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#signPanel" aria-expanded="false" aria-controls="signPanel">
+                    Sign text with a GPG private key
+                </button>
+            </h2>
+            <div id="signPanel" class="accordion-collapse collapse" data-bs-parent="#gpgForms">
+                <div class="accordion-body">
+                    <form id="signForm">
+                        <div class="mb-3">
+                            <label for="signText" class="form-label">Text to sign:</label>
+                            <textarea id="signText" class="form-control" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signPrivateKey" class="form-label">GPG private key:</label>
+                            <textarea id="signPrivateKey" class="form-control font-monospace" required spellcheck="false" placeholder="-----BEGIN PGP PRIVATE KEY BLOCK-----"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signPassphrase" class="form-label">Private key passphrase:</label>
+                            <input id="signPassphrase" class="form-control" type="password" autocomplete="off">
+                        </div>
+                        <button class="btn btn-primary w-100" type="submit">Sign text</button>
+                        <div class="text-danger mt-2" data-error role="alert" aria-live="polite"></div>
+                        <div class="mt-3">
+                            <label for="signatureOutput" class="form-label">Detached GPG signature:</label>
+                            <textarea id="signatureOutput" class="form-control font-monospace" readonly></textarea>
+                            <button class="btn btn-secondary w-100 mt-2" type="button" data-copy="signatureOutput">Copy signature</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#verifyPanel" aria-expanded="false" aria-controls="verifyPanel">
+                    Verify a signature with a GPG public key
+                </button>
+            </h2>
+            <div id="verifyPanel" class="accordion-collapse collapse" data-bs-parent="#gpgForms">
+                <div class="accordion-body">
+                    <form id="verifyForm">
+                        <div class="mb-3">
+                            <label for="verifyText" class="form-label">Original text:</label>
+                            <textarea id="verifyText" class="form-control" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="verifySignature" class="form-label">Detached GPG signature:</label>
+                            <textarea id="verifySignature" class="form-control font-monospace" required spellcheck="false" placeholder="-----BEGIN PGP SIGNATURE-----"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="verifyPublicKey" class="form-label">GPG public key:</label>
+                            <textarea id="verifyPublicKey" class="form-control font-monospace" required spellcheck="false" placeholder="-----BEGIN PGP PUBLIC KEY BLOCK-----"></textarea>
+                        </div>
+                        <button class="btn btn-primary w-100" type="submit">Verify signature</button>
+                        <div class="text-danger mt-2" data-error role="alert" aria-live="polite"></div>
+                        <div class="alert mt-3" data-result role="status" aria-live="polite" hidden></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#encryptionKeyPanel" aria-expanded="false" aria-controls="encryptionKeyPanel">
+                    Generate a GPG key pair for encryption
+                </button>
+            </h2>
+            <div id="encryptionKeyPanel" class="accordion-collapse collapse" data-bs-parent="#gpgForms">
+                <div class="accordion-body">
+                    <p class="text-muted small">The pair contains an Ed25519 primary key and a Curve25519 subkey dedicated to encryption.</p>
+                    <form id="encryptionKeyForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="encryptionKeyName" class="form-label">Name:</label>
+                                <input id="encryptionKeyName" class="form-control" required autocomplete="off">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="encryptionKeyEmail" class="form-label">Email address:</label>
+                                <input id="encryptionKeyEmail" class="form-control" type="email" required autocomplete="off">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="encryptionKeyPassphrase" class="form-label">Passphrase:</label>
+                                <input id="encryptionKeyPassphrase" class="form-control" type="password" autocomplete="new-password">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="encryptionKeyPassphraseConfirm" class="form-label">Confirm passphrase:</label>
+                                <input id="encryptionKeyPassphraseConfirm" class="form-control" type="password" autocomplete="new-password">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary w-100" type="submit">Generate key pair</button>
+                        <div class="text-danger mt-2" data-error role="alert" aria-live="polite"></div>
+                        <div class="mt-3">
+                            <label for="encryptionKeyFingerprint" class="form-label">Fingerprint:</label>
+                            <div class="input-group">
+                                <input id="encryptionKeyFingerprint" class="form-control font-monospace" readonly>
+                                <button class="btn btn-secondary" type="button" data-copy="encryptionKeyFingerprint">Copy</button>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <label for="encryptionKeyPublicKey" class="form-label">Public key:</label>
+                            <textarea id="encryptionKeyPublicKey" class="form-control font-monospace key-output" readonly></textarea>
+                            <button class="btn btn-secondary w-100 mt-2" type="button" data-copy="encryptionKeyPublicKey">Copy public key</button>
+                        </div>
+                        <div class="mt-3">
+                            <label for="encryptionKeyPrivateKey" class="form-label">Private key - keep it secret:</label>
+                            <textarea id="encryptionKeyPrivateKey" class="form-control font-monospace key-output" readonly></textarea>
+                            <button class="btn btn-secondary w-100 mt-2" type="button" data-copy="encryptionKeyPrivateKey">Copy private key</button>
+                        </div>
+                        <div class="mt-3">
+                            <label for="encryptionKeyRevocation" class="form-label">Revocation certificate:</label>
+                            <textarea id="encryptionKeyRevocation" class="form-control font-monospace" readonly></textarea>
+                            <button class="btn btn-secondary w-100 mt-2" type="button" data-copy="encryptionKeyRevocation">Copy revocation certificate</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#signatureKeyPanel" aria-expanded="false" aria-controls="signatureKeyPanel">
+                    Generate a GPG key pair for signing
+                </button>
+            </h2>
+            <div id="signatureKeyPanel" class="accordion-collapse collapse" data-bs-parent="#gpgForms">
+                <div class="accordion-body">
+                    <p class="text-muted small">The generated Ed25519 pair is dedicated to certification and signing, without an encryption subkey.</p>
+                    <form id="signatureKeyForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="signatureKeyName" class="form-label">Name:</label>
+                                <input id="signatureKeyName" class="form-control" required autocomplete="off">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="signatureKeyEmail" class="form-label">Email address:</label>
+                                <input id="signatureKeyEmail" class="form-control" type="email" required autocomplete="off">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="signatureKeyPassphrase" class="form-label">Passphrase:</label>
+                                <input id="signatureKeyPassphrase" class="form-control" type="password" autocomplete="new-password">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="signatureKeyPassphraseConfirm" class="form-label">Confirm passphrase:</label>
+                                <input id="signatureKeyPassphraseConfirm" class="form-control" type="password" autocomplete="new-password">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary w-100" type="submit">Generate key pair</button>
+                        <div class="text-danger mt-2" data-error role="alert" aria-live="polite"></div>
+                        <div class="mt-3">
+                            <label for="signatureKeyFingerprint" class="form-label">Fingerprint:</label>
+                            <div class="input-group">
+                                <input id="signatureKeyFingerprint" class="form-control font-monospace" readonly>
+                                <button class="btn btn-secondary" type="button" data-copy="signatureKeyFingerprint">Copy</button>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <label for="signatureKeyPublicKey" class="form-label">Public key:</label>
+                            <textarea id="signatureKeyPublicKey" class="form-control font-monospace key-output" readonly></textarea>
+                            <button class="btn btn-secondary w-100 mt-2" type="button" data-copy="signatureKeyPublicKey">Copy public key</button>
+                        </div>
+                        <div class="mt-3">
+                            <label for="signatureKeyPrivateKey" class="form-label">Private key - keep it secret:</label>
+                            <textarea id="signatureKeyPrivateKey" class="form-control font-monospace key-output" readonly></textarea>
+                            <button class="btn btn-secondary w-100 mt-2" type="button" data-copy="signatureKeyPrivateKey">Copy private key</button>
+                        </div>
+                        <div class="mt-3">
+                            <label for="signatureKeyRevocation" class="form-label">Revocation certificate:</label>
+                            <textarea id="signatureKeyRevocation" class="form-control font-monospace" readonly></textarea>
+                            <button class="btn btn-secondary w-100 mt-2" type="button" data-copy="signatureKeyRevocation">Copy revocation certificate</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+            </div>
+        </div>
+        <div class="card-footer text-muted text-center">
+            <small><a href="../index.html" class="text-decoration-none">Back to security tools</a></small>
+        </div>
+    </div>
+</main>
+<script src="bootstrap-5.3.3.bundle.min.js" ></script>
+</body>
+</html>

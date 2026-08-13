@@ -35,8 +35,15 @@
             <div class="card-header bg-primary text-white text-center">
                 <h1 class="h3 mb-0">Privacy Tools</h1>
             </div>
+
+
             <div class="card-body">
-                <p class="text-center text-muted">Select a tool:</p>
+                <div class="alert alert-info small" role="status">
+                    Everything is processed locally in your browser. Your keys, passphrases, signatures, and messages
+                    are never sent over the network.
+                </div>
+
+                <p class="text-center text-muted">Tools for non-specialists:</p>
                 <div class="list-group">
                     <a href="web/encrypt.html" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                         AES Encryption
@@ -46,6 +53,28 @@
                         AES Decryption
                         <span class="menu-color menu-color-c1" aria-hidden="true"></span>
                     </a>
+                    <a href="web/secrets.html" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        Secret Sharing (Shamir)
+                        <span class="menu-color menu-color-c3" aria-hidden="true"></span>
+                    </a>
+                    <a href="web/reconstruct.html" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        Secret Reconstruction
+                        <span class="menu-color menu-color-c3" aria-hidden="true"></span>
+                    </a>
+                    <a href="web/openpgp.html" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        GPG / OpenPGP Tools
+                        <span class="menu-color menu-color-c5" aria-hidden="true"></span>
+                    </a>
+                    <a href="web/qrcode.html" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                        Standalone QR Code Generator
+                        <span class="menu-color menu-color-c4" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <p class="text-center text-muted">Technical tools:</p>
+                <div class="list-group">
                     <a href="web/public-encrypt.html" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                         Public-key Encryption
                         <span class="menu-color menu-color-c5" aria-hidden="true"></span>
@@ -62,32 +91,25 @@
                         Signature Verification
                         <span class="menu-color menu-color-c2" aria-hidden="true"></span>
                     </a>
-                    <a href="web/secrets.html" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                        Secret Sharing (Shamir)
-                        <span class="menu-color menu-color-c3" aria-hidden="true"></span>
-                    </a>
-                    <a href="web/reconstruct.html" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                        Secret Reconstruction
-                        <span class="menu-color menu-color-c3" aria-hidden="true"></span>
-                    </a>
-                    <a href="web/qrcode.html" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                        Standalone QR Code Generator
-                        <span class="menu-color menu-color-c4" aria-hidden="true"></span>
-                    </a>
                 </div>
-                <div class="mt-4">
-                    <p class="small text-muted mb-2"><b>AES Encryption algorithm</b>: see <a href="https://github.com/click-and-shield/privacy-forge/tree/master/doc/aes-encryption.md">AES Encryption</a></p>
-                </div>
+            </div>
+
+            <div class="card-body">
                 <div class="mt-4">
                     <p class="small text-muted mb-2">These tools use the following libraries:</p>
                     <ul class="small text-muted mb-0">
                         <li><a href="https://github.com/Digital-Defiance/secrets-ts" target="_blank">secrets-ts</a></li>
                         <li><a href="https://github.com/nayuki/QR-Code-generator" target="_blank">QR-Code-generator</a></li>
+                        <li><a href="https://openpgpjs.org/" target="_blank">OpenPGP.js</a></li>
                     </ul>
                 </div>
             </div>
+
+
             <div class="card-footer text-center text-muted">
-                Source: <a href="https://github.com/click-and-shield/privacy-forge" target="_blank">https://github.com/click-and-shield/privacy-forge</a>
+                <p class="small text-muted mb-2">Source: <a href="https://github.com/click-and-shield/privacy-forge" target="_blank">https://github.com/click-and-shield/privacy-forge</a></p>
+
+
             </div>
         </div>
     </div>

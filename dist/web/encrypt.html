@@ -15,6 +15,9 @@
             display: block; 
             margin: 0 auto;
         }
+        .custom-header {
+            background-color: #0d6efd;
+        }
     </style>
   <script defer src="../assets/encrypt.js"></script>
 
@@ -23,7 +26,7 @@
 <body>
 <div class="container">
     <div class="card">
-        <div class="card-header bg-primary text-white">
+        <div class="card-header custom-header text-white">
             <h1 class="h4 mb-0">Encrypt text</h1>
         </div>
         <div class="card-body">
@@ -35,6 +38,23 @@
             <div class="mb-3">
                 <label for="password" class="form-label">Secret key:</label>
                 <input id="password" class="form-control" type="password" />
+            </div>
+
+            <div class="accordion mb-3" id="keyAesHelp">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#keyAesCommands" aria-expanded="false" aria-controls="keyAesCommands">
+                            Documentation
+                        </button>
+                    </h2>
+                    <div id="keyAesCommands" class="accordion-collapse collapse" data-bs-parent="#keyAesHelp">
+                        <div class="accordion-body">
+                            <ul class="mb-0">
+                                Documentation: <a href="https://github.com/click-and-shield/privacy-forge/blob/master/doc/aes-encryption.md">description of the encryption algorithm and document format</a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="mb-4">

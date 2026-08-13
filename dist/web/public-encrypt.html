@@ -10,6 +10,9 @@
         .container { max-width: 800px; margin-top: 50px; margin-bottom: 50px; }
         .card { box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+        .custom-header {
+            background-color: #ffc107;
+        }
     </style>
   <script defer src="../assets/publicEncrypt.js"></script>
 
@@ -17,7 +20,7 @@
 <body>
 <div class="container">
     <div class="card">
-        <div class="card-header bg-primary text-white">
+        <div class="card-header custom-header text-white">
             <h1 class="h4 mb-0">Encrypt with a public key</h1>
         </div>
         <div class="card-body">
@@ -35,8 +38,8 @@
             <div class="mb-3">
                 <label for="algorithm" class="form-label">Encryption algorithm:</label>
                 <select id="algorithm" class="form-select">
-                    <option value="ECDH-HKDF-AES-256-GCM">ECDH + HKDF + AES-256-GCM</option>
-                    <option value="RSA-OAEP-AES-256-GCM">RSA-OAEP + AES-256-GCM</option>
+                    <option value="ECDH-HKDF-AES-256-GCM">ECDH + HKDF + AES-256-GCM (public key: elliptic curve P-256/P-384/P-521)</option>
+                    <option value="RSA-OAEP-AES-256-GCM">RSA-OAEP + AES-256-GCM (public key: RSA 2048/3072/4096)</option>
                 </select>
             </div>
             <div class="accordion mb-3" id="keyGenerationHelp">
