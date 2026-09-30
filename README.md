@@ -11,6 +11,7 @@ confidentiality.
 - Encrypt, decrypt, sign, verify, and generate GPG/OpenPGP key pairs entirely in the browser.
 - Share and reconstruct a secret using [Shamir's secret sharing algorithm](https://en.wikipedia.org/wiki/Shamir%27s_secret_sharing).
 - Create QR codes from text.
+- Estimate password strength offline using zxcvbn-ts, with selectable common, English and French dictionaries.
 
 > Please note that **no data is sent to any server**. Your data stays on your device.
 > You can disconnect your device from the WEB and these tools will execute.
@@ -27,6 +28,10 @@ Open [https://click-and-shield.github.io/privacy-tools/](https://click-and-shiel
 2. Unzip the file.
 3. Open the `index.html` file in your browser.
 
+For a source checkout, run `npm install` and `npm run build` first, then open
+`dist/index.html`. Opening the root menu or a source form directly also uses
+the standalone scripts generated in `dist/assets`; rebuild after source changes.
+
 ## Credits
 
 These tools use the following great libraries:
@@ -34,3 +39,4 @@ These tools use the following great libraries:
 - [https://github.com/Digital-Defiance/secrets-ts](https://github.com/Digital-Defiance/secrets-ts)
 - [https://github.com/nayuki/QR-Code-generator](https://github.com/nayuki/QR-Code-generator)
 - [https://openpgpjs.org/](https://openpgpjs.org/)
+- [zxcvbn-ts](https://github.com/zxcvbn-ts/zxcvbn)

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AES-GCM Encryption</title>
-    <link href="bootstrap-5.3.3.min.css" rel="stylesheet" vite-ignore>
+    <link href="bootstrap-5.3.3.min.css" rel="stylesheet" >
     <style>
         body { background-color: #f8f9fa; }
         .container { max-width: 800px; margin-top: 50px; }
@@ -15,56 +15,36 @@
             display: block; 
             margin: 0 auto;
         }
-        .custom-header {
-            background-color: #0d6efd;
-        }
     </style>
+  <script defer src="../assets/crypt.js"></script>
+
+
 </head>
 <body>
 <div class="container">
     <div class="card">
-        <div class="card-header custom-header text-white">
-            <h1 class="h4 mb-0">Encrypt text</h1>
+        <div class="card-header bg-dark text-white">
+            <h1 class="h4 mb-0">Encrypt / Decrypt text</h1>
         </div>
         <div class="card-body">
             <div class="mb-3">
-                <label for="plainText" class="form-label">Text to encrypt:</label>
-                <textarea id="plainText" class="form-control" rows="4"></textarea>
+                <label for="plainText" class="form-label">Text:</label>
+                <textarea id="plainText" class="form-control" rows="4">Secret message</textarea>
             </div>
 
             <div class="mb-3">
-                <label for="password" class="form-label">Secret key:</label>
+                <label for="password" class="form-label">Password:</label>
                 <input id="password" class="form-control" type="password" />
             </div>
 
-            <div class="accordion mb-3" id="keyAesHelp">
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#keyAesCommands" aria-expanded="false" aria-controls="keyAesCommands">
-                            Documentation
-                        </button>
-                    </h2>
-                    <div id="keyAesCommands" class="accordion-collapse collapse" data-bs-parent="#keyAesHelp">
-                        <div class="accordion-body">
-                            <ul class="mb-0">
-                                Documentation: <a href="https://github.com/click-and-shield/privacy-forge/blob/master/doc/aes-encryption.md">description of the encryption algorithm and document format</a>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mb-4">
-                <button id="encryptButton" class="btn btn-primary w-100">Encrypt text</button>
+            <div class="d-flex gap-2 mb-4">
+                <button id="encryptButton" class="btn btn-primary flex-grow-1">Encrypt</button>
+                <button id="decryptButton" class="btn btn-secondary flex-grow-1">Decrypt</button>
             </div>
 
             <div class="mb-3">
                 <label for="encryptedText" class="form-label">Encrypted text:</label>
-                <textarea id="encryptedText" class="form-control font-monospace" rows="4" readonly></textarea>
-            </div>
-
-            <div class="mb-3">
-                <button id="copyButton" class="btn btn-secondary w-100">Copy encrypted text</button>
+                <textarea id="encryptedText" class="form-control font-monospace" rows="4"></textarea>
             </div>
 
             <div class="mb-3">
@@ -72,7 +52,7 @@
             </div>
 
             <div id="qrcode-container" class="text-center mb-4" style="display: none;">
-                <label class="form-label d-block">QR code preview (Encrypted):</label>
+                <label class="form-label d-block">QR code preview:</label>
                 <div class="bg-light p-3 border rounded mb-2">
                     <canvas id="qrcode-canvas" style="display: none; background-color:#E8E8E8"></canvas>
                     <svg id="qrcode-svg" style="display: none; background-color:#E8E8E8">
@@ -131,12 +111,16 @@
                 </div>
             </div>
 
+            <div class="mb-3">
+                <label for="decryptedText" class="form-label">Decrypted text:</label>
+                <textarea id="decryptedText" class="form-control" rows="4"></textarea>
+            </div>
+
             <div id="error" class="text-danger mt-2" style="min-height: 24px;"></div>
         </div>
     </div>
 </div>
 
-<script src="bootstrap-5.3.3.bundle.min.js" vite-ignore></script>
-<script defer src="form-loader.js" data-module="/src/encrypt.web.ts" data-bundle="../dist/assets/encrypt.js"></script>
+<script src="bootstrap-5.3.3.bundle.min.js" ></script>
 </body>
 </html>

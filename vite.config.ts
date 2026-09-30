@@ -12,6 +12,18 @@ export default defineConfig({
   root: '.',
   plugins: [
     {
+      name: 'form-typescript-entries',
+      transformIndexHtml: {
+        order: 'pre',
+        handler(html) {
+          return html.replace(
+            /<script defer src="form-loader\.js" data-module="([^"]+)" data-bundle="[^"]+"><\/script>/g,
+            '<script type="module" src="$1"></script>',
+          );
+        },
+      },
+    },
+    {
       name: 'copy-bootstrap-assets',
       apply: 'build',
       buildStart() {
@@ -30,6 +42,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'), // Home page
+        crypt: resolve(__dirname, 'web/crypt.html'),
         decrypt: resolve(__dirname, 'web/decrypt.html'),
         encrypt: resolve(__dirname, 'web/encrypt.html'),
         publicEncrypt: resolve(__dirname, 'web/public-encrypt.html'),
@@ -40,6 +53,7 @@ export default defineConfig({
         qrcode: resolve(__dirname, 'web/qrcode.html'),
         reconstruct: resolve(__dirname, 'web/reconstruct.html'),
         secrets: resolve(__dirname, 'web/secrets.html'),
+        password: resolve(__dirname, 'web/password.html'),
       },
     },
   },

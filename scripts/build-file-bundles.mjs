@@ -5,6 +5,7 @@ import { build } from 'vite';
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const entries = {
+  crypt: 'src/crypt.web.ts',
   decrypt: 'src/decrypt.web.ts',
   encrypt: 'src/encrypt.web.ts',
   publicEncrypt: 'src/public-encrypt.web.ts',
@@ -15,6 +16,7 @@ const entries = {
   sign: 'src/sign.web.ts',
   verify: 'src/verify.web.ts',
   openpgp: 'src/openpgp.web.ts',
+  password: 'src/password.web.ts',
 };
 
 const htmlPageNames = {
