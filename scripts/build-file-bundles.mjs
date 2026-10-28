@@ -11,6 +11,7 @@ const entries = {
   publicEncrypt: 'src/public-encrypt.web.ts',
   publicDecrypt: 'src/public-decrypt.web.ts',
   qrcode: 'src/qrcode.web.ts',
+  wifiQrcode: 'src/wifi-qrcode.web.ts',
   reconstruct: 'src/reconstruct.web.ts',
   secrets: 'src/secrets.web.ts',
   sign: 'src/sign.web.ts',
@@ -20,6 +21,7 @@ const entries = {
 };
 
 const htmlPageNames = {
+  wifiQrcode: 'wifi-qrcode',
   publicEncrypt: 'public-encrypt',
   publicDecrypt: 'public-decrypt',
 };

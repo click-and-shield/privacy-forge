@@ -51,6 +51,7 @@ export default defineConfig({
         verify: resolve(__dirname, 'web/verify.html'),
         openpgp: resolve(__dirname, 'web/openpgp.html'),
         qrcode: resolve(__dirname, 'web/qrcode.html'),
+        wifiQrcode: resolve(__dirname, 'web/wifi-qrcode.html'),
         reconstruct: resolve(__dirname, 'web/reconstruct.html'),
         secrets: resolve(__dirname, 'web/secrets.html'),
         password: resolve(__dirname, 'web/password.html'),

@@ -11,6 +11,7 @@ confidentiality.
 - Encrypt, decrypt, sign, verify, and generate GPG/OpenPGP key pairs entirely in the browser.
 - Share and reconstruct a secret using [Shamir's secret sharing algorithm](https://en.wikipedia.org/wiki/Shamir%27s_secret_sharing).
 - Create QR codes from text.
+- Create Wi-Fi connection QR codes from a network name and password, with PNG and SVG downloads.
 - Estimate password strength offline using zxcvbn-ts, with selectable common, English and French dictionaries.
 
 > Please note that **no data is sent to any server**. Your data stays on your device.

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="connect-src 'none'; form-action 'none'">
+    <title>Wi-Fi QR Code Generator</title>
+    <link href="bootstrap-5.3.3.min.css" rel="stylesheet" >
+    <style>
+        body { background-color: #f8f9fa; }
+        .container { max-width: 900px; margin-top: 30px; margin-bottom: 50px; }
+        #qrcode-canvas { max-width: 100%; height: auto; }
+    </style>
+  <script defer src="../assets/wifiQrcode.js"></script>
+
+</head>
+<body>
+<main class="container">
+    <a href="../index.html" class="d-inline-block mb-3">Back to tools</a>
+    <div class="card shadow-sm">
+        <div class="card-header bg-info text-white">
+            <h1 class="h4 mb-0">Wi-Fi QR Code Generator</h1>
+        </div>
+        <div class="card-body">
+            <p class="alert alert-info">Everything is processed locally in your browser, even offline. Your Wi-Fi credentials are never sent over the network or saved by this tool.</p>
+            <p>For WPA/WPA2 Personal networks. Scan the QR code with a compatible Android phone or iPhone to join the network. Your phone may ask for confirmation.</p>
+            <p id="loading" role="status">Loading application...</p>
+            <noscript>Enable JavaScript to generate Wi-Fi QR codes.</noscript>
+            <form id="wifi-form" autocomplete="off" hidden>
+                <div class="mb-3">
+                    <label for="ssid" class="form-label">Wi-Fi network name (SSID)</label>
+                    <input id="ssid" type="text" class="form-control" required autocomplete="off" spellcheck="false" autocapitalize="off" aria-describedby="ssid-help">
+                    <div id="ssid-help" class="form-text">Enter the exact name, including spaces and letter case. Maximum: 32 UTF-8 bytes.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Wi-Fi password</label>
+                    <input id="password" type="password" class="form-control" required autocomplete="new-password" spellcheck="false" autocapitalize="off">
+                </div>
+                <div class="form-check mb-3">
+                    <input id="show-password" type="checkbox" class="form-check-input">
+                    <label for="show-password" class="form-check-label">Show password</label>
+                </div>
+                <div class="form-check mb-3">
+                    <input id="hidden-network" type="checkbox" class="form-check-input">
+                    <label for="hidden-network" class="form-check-label">Hidden network</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Generate QR code</button>
+                <button type="reset" class="btn btn-outline-secondary">Clear</button>
+            </form>
+            <p id="status" class="mt-3" role="status" aria-live="polite"></p>
+            <section id="results" class="text-center" aria-labelledby="preview-title" hidden>
+                <h2 id="preview-title" class="h5">Preview</h2>
+                <div class="bg-light p-3 border rounded mb-3">
+                    <canvas id="qrcode-canvas" role="img" aria-label="Wi-Fi connection QR code"></canvas>
+                </div>
+                <a id="download-png" class="btn btn-sm btn-outline-primary" download="wifi-qr-code.png">Download PNG</a>
+                <a id="download-svg" class="btn btn-sm btn-outline-primary" download="wifi-qr-code.svg">Download SVG</a>
+            </section>
+            <p class="alert alert-warning mt-3 mb-0">Anyone with this QR code can recover the Wi-Fi password. The QR code encodes your credentials; it does not encrypt them. Share it only with people you want to give access to your network.</p>
+        </div>
+        <div class="card-footer text-muted text-center"><small>Based on Project Nayuki</small></div>
+    </div>
+</main>
+</body>
+</html>
